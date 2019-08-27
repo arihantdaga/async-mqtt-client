@@ -350,9 +350,12 @@ void AsyncMqttClient::_onDisconnect(AsyncClient* client) {
     } else {
       reason = AsyncMqttClientDisconnectReason::TCP_DISCONNECTED;
     }
+    _clear();
     for (auto callback : _onDisconnectUserCallbacks) callback(reason);
   }
-  _clear();
+  else {
+    _clear();
+  }
 }
 
 void AsyncMqttClient::_onError(AsyncClient* client, int8_t error) {
